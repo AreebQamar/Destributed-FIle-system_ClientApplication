@@ -9,7 +9,7 @@ export default function Home() {
 
   const [filterString, setfilterString] = useState("");
   return (
-    <div className="">
+    <div className="h-screen">
       <Header filterString={filterString} setfilterString = {setfilterString}/>
       <Files filter={filterString}/>
     </div>

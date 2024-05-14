@@ -6,7 +6,7 @@ import FileUploader from "./uploader";
 export default function Header({filterString, setfilterString}) {
 
     return (
-        <div className="flex justify-center space-x-3">
+        <div className="flex justify-center items-center space-x-3 mt-4">
             <input
                 type="text"
                 placeholder="Search..."
