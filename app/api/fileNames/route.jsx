@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 
-export async function GET(){
-    const filename = ["abc.txt", "cdf.png", "jhi.csv"];
+export async function GET() {
+  const filename = ["abc.txt", "cdf.png", "jhi.csv"];
 
-
-    return NextResponse.json(filename);
+  return NextResponse.json(filename);
 }
+
+export async function POST() {}
