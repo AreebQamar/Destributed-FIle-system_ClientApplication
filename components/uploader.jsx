@@ -6,10 +6,15 @@ export default function FileUploader() {
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
-    if (file) {
+  };
+
+  useEffect(()=>{
+
+    if(file !=""){
       uploadFile();
     }
-  };
+    
+  },[file]);
 
   const uploadFile = async () => {
     const formData = new FormData();
@@ -20,7 +25,7 @@ export default function FileUploader() {
         method: "POST",
         body: formData,
       });
-
+      console.log(response);
       if (!response.ok) {
         throw new Error("Upload failed");
       }
