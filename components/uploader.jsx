@@ -15,13 +15,21 @@ export default function FileUploader() {
     const formData = new FormData();
     formData.append("file", file);
     console.log(formData);
-    fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
+    try {
+      const response = await fetch("http://localhost:4000/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Upload failed");
+      }
+
+      const result = await response.json();
+      console.log("Upload successful:", result);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
   };
 
   return (
