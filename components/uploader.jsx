@@ -1,20 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { MdFileUpload } from "react-icons/md";
-
+import LoadingSpinner from "./loading-spinner";
 export default function FileUploader() {
   const [file, setFile] = useState("");
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+    console.log("File selected");
   };
 
-  useEffect(()=>{
-
-    if(file !=""){
+  useEffect(() => {
+    if (file != "") {
       uploadFile();
+      setFile("");
     }
-    
-  },[file]);
+  }, [file]);
 
   const uploadFile = async () => {
     const formData = new FormData();
@@ -25,7 +25,7 @@ export default function FileUploader() {
         method: "POST",
         body: formData,
       });
-      console.log(response);
+
       if (!response.ok) {
         throw new Error("Upload failed");
       }
@@ -48,7 +48,6 @@ export default function FileUploader() {
       </label>
       {/* Hidden file input */}
       <input
-        // ref={hiddenFileInput}
         id="fileInput"
         type="file"
         className="hidden"
