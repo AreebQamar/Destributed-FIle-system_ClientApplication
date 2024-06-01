@@ -12,7 +12,6 @@ export default function FileUploader() {
   useEffect(() => {
     if (file != "") {
       uploadFile();
-      setFile("");
     }
   }, [file]);
 
@@ -30,10 +29,11 @@ export default function FileUploader() {
         throw new Error("Upload failed");
       }
 
-      const result = await response.json();
-      console.log("Upload successful:", result);
+      const result = await response.text();
+      alert("File uploaded successfully");
     } catch (error) {
-      console.error("Error uploading file:", error);
+      console.log(error);
+      alert("Error uploading file");
     }
   };
 
