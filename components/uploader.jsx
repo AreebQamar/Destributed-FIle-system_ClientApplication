@@ -12,36 +12,32 @@ export default function FileUploader() {
 
   useEffect(() => {
     if (file) {
-      uploadFile();
-      // console.log(file)
+      handleUpload();
     }
   }, [file]);
 
-  const uploadFile = async () => {
-   
+  const handleUpload = async () => {
+    if (!file) {
+      alert('Please select a file first.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-      // formData.set("file", file);
-      const response = await fetch(`http://localhost:4000/upload`,
-      { 
-        method:"POST",
-        body:formData, 
+      const response = await fetch('/api/greatUpload', {
+        method: 'POST',
+        body: formData,
       });
-      
-      // const response = await axios.post('/api/uploadFile',
-      //   formData,
-      // );
 
-      // if (response.status !== 200) {
-      //   throw new Error("Upload failed");
-      // }
-
-      console.log(response);
-      alert("File uploaded successfully");
+      if (response.ok) {
+        alert('File uploaded successfully');
+      } else {
+        alert('File upload failed');
+      }
     } catch (error) {
-      console.log(error);
-      alert("Error uploading file");
+      alert('Error uploading file: ' + error.message);
     }
     setFile("");
   };

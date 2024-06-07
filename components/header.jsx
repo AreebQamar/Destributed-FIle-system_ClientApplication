@@ -16,8 +16,8 @@ export default function Header({filterString, setfilterString}) {
                 onChange={(e) => (setfilterString(e.target.value))}
                 className="p-2 border rounded-md placeholder-gray-500 text-black"
             />
-            {/* <FileUploader /> */}
-            <NewFileUploader/>
+            <FileUploader />
+            {/* <NewFileUploader/> */}
         </div>
     )
 }

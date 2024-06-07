@@ -1,48 +1,30 @@
+import { NextResponse } from "next/server";
 
-import axios from 'axios';
-import { NextResponse } from 'next/server';
-import formidable from 'formidable';
 
-export const config = {
-    api: {
-      bodyParser: false, // Disable Next.js default bodyParser
-    },
-  };
+
+export async function POST(req, res) {
+    try {
+      const formData = await req.formData();
+      const file = formData.get('file');
   
+      if (!file) {
+        return NextResponse.json({ error: 'No file received' }, { status: 400 });
+      }
+  
+      const backendResponse = await fetch('http://localhost:4000/upload', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (backendResponse.ok) {
+        return NextResponse.json({ message: 'uploaded successfully' }, { status: 200 });
+      } else {
+        const errorText = await backendResponse.text();
+        return NextResponse.json({ error: 'Back end error', errorText }, { status: 500 });
+      }
+    } catch (error) {
+        return NextResponse.json({ error: 'Failed to upload file' }, { status: 500 });
 
-
-export async function POST(req) {
-    const form = new formidable.IncomingForm();
-
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      console.error('Error parsing the files', err);
-      return res.status(500).json({ error: 'Failed to parse file' });
     }
-
-    const file = files.file;
-
-    // Log file details
-    console.log('File received:', file);
-
-    // Forward the file to your backend server
-    const formData = new FormData();
-    formData.append('file', file);
-
-    axios.post('http://localhost:4000/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-    .then(response => {
-      if (response.status !== 200) {
-        throw new Error('Upload failed');
-      }
-      return res.status(200).json({ message: 'File uploaded successfully' });
-    })
-    .catch(error => {
-      console.error(error);
-      return res.status(500).json({ error: 'Failed to upload file' });
-    });
-  });
-}
+  }
+  
