@@ -12,7 +12,6 @@ export default function Files({ filter }) {
             try {
                 const response = await axios.get('/api/fileNames');
                 setFilesData(response.data.files);
-                
             } catch (error) {
                 setError(error);
             } finally {
@@ -33,7 +32,6 @@ export default function Files({ filter }) {
 
     return (
         <div className="m-4 p-2 border-2 border-gray-500 h-4/5 overflow-y-scroll">
-            hello world!
             {
                 filesData.filter(filename => filename.toLowerCase().includes(filter.toLowerCase()))
                     .map((filename, index) => (

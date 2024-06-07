@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { MdFileUpload } from "react-icons/md";
-// import LoadingSpinner from "./loading-spinner";
+import axios from 'axios';
+
 export default function FileUploader() {
   const [file, setFile] = useState("");
 
@@ -10,31 +11,39 @@ export default function FileUploader() {
   };
 
   useEffect(() => {
-    if (file != "") {
+    if (file) {
       uploadFile();
+      // console.log(file)
     }
   }, [file]);
 
   const uploadFile = async () => {
-    const formData = new FormData();
-    formData.append("file", file);
-    console.log(formData);
+   
     try {
-      const response = await fetch("http://localhost:4000/upload", {
-        method: "POST",
-        body: formData,
+      const formData = new FormData();
+      formData.append('file', file);
+      // formData.set("file", file);
+      const response = await fetch(`http://localhost:4000/upload`,
+      { 
+        method:"POST",
+        body:formData, 
       });
+      
+      // const response = await axios.post('/api/uploadFile',
+      //   formData,
+      // );
 
-      if (!response.ok) {
-        throw new Error("Upload failed");
-      }
+      // if (response.status !== 200) {
+      //   throw new Error("Upload failed");
+      // }
 
-      const result = await response.text();
+      console.log(response);
       alert("File uploaded successfully");
     } catch (error) {
       console.log(error);
       alert("Error uploading file");
     }
+    setFile("");
   };
 
   return (
@@ -42,7 +51,7 @@ export default function FileUploader() {
       {/* File upload icon */}
       <label
         htmlFor="fileInput"
-        className="w-16  cursor-pointer flex items-center justify-center"
+        className="w-16 cursor-pointer flex items-center justify-center"
       >
         <MdFileUpload className="w-8 h-8 " />
       </label>
