@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 import FileUploader from "./uploader";
-import NewFileUploader from "./newFileUploader";
 
 
 export default function Header({filterString, setfilterString}) {
@@ -17,7 +16,6 @@ export default function Header({filterString, setfilterString}) {
                 className="p-2 border rounded-md placeholder-gray-500 text-black"
             />
             <FileUploader />
-            {/* <NewFileUploader/> */}
         </div>
     )
 }
