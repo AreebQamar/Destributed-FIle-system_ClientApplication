@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { MdFileUpload } from "react-icons/md";
-import LoadingSpinner from "./loading-spinner";
+// import LoadingSpinner from "./loading-spinner";
 export default function FileUploader() {
   const [file, setFile] = useState("");
 
