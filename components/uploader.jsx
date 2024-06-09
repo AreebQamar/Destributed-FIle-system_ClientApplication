@@ -26,7 +26,7 @@ export default function FileUploader() {
     formData.append('file', file);
 
     try {
-      const response = await fetch('/api/greatUpload', {
+      const response = await fetch('/api/uploadFile', {
         method: 'POST',
         body: formData,
       });
