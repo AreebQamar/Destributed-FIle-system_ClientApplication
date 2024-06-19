@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { defaultStyles, FileIcon } from "react-file-icon";
+import DeleteButton from "./deleteButton";
 
 export default function Files({ filter }) {
   const [filesData, setFilesData] = useState([]);
@@ -58,28 +59,38 @@ export default function Files({ filter }) {
     return filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2);
   }
 
+  async function downloadHelper(fileName) {
+    await handleDownload(fileName);
+  }
+
   return (
     <div className="grid grid-cols-3 m-[5%] gap-40 place-items-center p-20">
-      {filesData.map((filename, index) => {
-        if (filename.toLowerCase().includes(filter.toLowerCase())) {
-          const extension = getExtension(filename);
-          return (
-            <button
-              key={index}
-              onClick={() => handleDownload(filename)}
-              className="flex flex-col items-center h-40 w-52 py-4 hover:bg-slate-400 rounded-lg"
-            >
-              <FileIcon extension={extension} {...defaultStyles[extension]} />
+      {
+        filesData.map((filename, index) => {
+          if (filename.toLowerCase().includes(filter.toLowerCase())) {
+            const extension = getExtension(filename);
+            return (
+              <div>
+                <div
+                  key={index}
+                  onClick={() => downloadHelper(filename)}
+                  className="flex flex-col items-center h-40 w-52 py-4 hover:bg-slate-400 rounded-lg"
+                >
+                  <FileIcon extension={extension} {...defaultStyles[extension]} />
 
-              <p className="cursor-pointer mb-4 text-2xl font-bold">
-                {filename}
-              </p>
-            </button>
-          );
-        }
+                  <p className="cursor-pointer mb-4 text-2xl font-bold">
+                    {filename}
+                  </p>
 
-        return null;
-      })}
+                </div>
+                  <DeleteButton fileName={filename} />
+              </div>
+            );
+          }
+
+          return null;
+        })
+      }
     </div>
   );
 
