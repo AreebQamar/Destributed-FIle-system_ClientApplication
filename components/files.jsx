@@ -70,9 +70,8 @@ export default function Files({ filter }) {
           if (filename.toLowerCase().includes(filter.toLowerCase())) {
             const extension = getExtension(filename);
             return (
-              <div>
+              <div key={index}>
                 <div
-                  key={index}
                   onClick={() => downloadHelper(filename)}
                   className="flex flex-col items-center h-40 w-52 py-4 hover:bg-slate-400 rounded-lg"
                 >
