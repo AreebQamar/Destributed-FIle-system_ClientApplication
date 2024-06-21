@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { defaultStyles, FileIcon } from "react-file-icon";
-import DeleteButton from "./deleteButton";
+import Menu from "./menu";
 
 export default function Files({ filter }) {
   const [filesData, setFilesData] = useState([]);
@@ -71,6 +71,11 @@ export default function Files({ filter }) {
             const extension = getExtension(filename);
             return (
               <div key={index}>
+                
+                <Menu className={"flex justify-end"}
+                  fileName={filename} 
+                />
+                
                 <div
                   onClick={() => downloadHelper(filename)}
                   className="flex flex-col items-center h-40 w-52 py-4 hover:bg-slate-400 rounded-lg"
@@ -82,7 +87,6 @@ export default function Files({ filter }) {
                   </p>
 
                 </div>
-                  <DeleteButton fileName={filename} />
               </div>
             );
           }
