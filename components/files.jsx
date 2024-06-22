@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { defaultStyles, FileIcon } from "react-file-icon";
+import { AiTwotoneFileUnknown } from "react-icons/ai";
 import Menu from "./menu";
 
 export default function Files({ filter }) {
@@ -64,35 +65,48 @@ export default function Files({ filter }) {
   }
 
   return (
-    <div className="grid grid-cols-3 m-[5%] gap-40 place-items-center p-20">
+    <div>
       {
-        filesData.map((filename, index) => {
-          if (filename.toLowerCase().includes(filter.toLowerCase())) {
-            const extension = getExtension(filename);
-            return (
-              <div key={index}>
-                
-                <Menu className={"flex justify-end"}
-                  fileName={filename} 
-                />
-                
-                <div
-                  onClick={() => downloadHelper(filename)}
-                  className="flex flex-col items-center h-40 w-52 py-4 hover:bg-slate-400 rounded-lg"
-                >
-                  <FileIcon extension={extension} {...defaultStyles[extension]} />
+        filesData.length === 0 ?
+            <div className="h-screen flex flex-col justify-center items-center text-center text-9xl">
 
-                  <p className="cursor-pointer mb-4 text-2xl font-bold">
-                    {filename}
-                  </p>
+              <AiTwotoneFileUnknown />
+            <div className="text-3xl">
+              No file available
+            </div>
+            </div>
+          :
+          <div className="grid grid-cols-3 m-[5%] gap-40 place-items-center p-20">
+            {
+              filesData.map((filename, index) => {
+                if (filename.toLowerCase().includes(filter.toLowerCase())) {
+                  const extension = getExtension(filename);
+                  return (
+                    <div key={index}>
 
-                </div>
-              </div>
-            );
-          }
+                      <Menu className={"flex justify-end"}
+                        fileName={filename}
+                      />
 
-          return null;
-        })
+                      <div
+                        onClick={() => downloadHelper(filename)}
+                        className="flex flex-col items-center h-40 w-52 py-4 hover:bg-slate-400 rounded-lg"
+                      >
+                        <FileIcon extension={extension} {...defaultStyles[extension]} />
+
+                        <p className="cursor-pointer mb-4 text-2xl font-bold">
+                          {filename}
+                        </p>
+
+                      </div>
+                    </div>
+                  );
+                }
+
+                return null;
+              })
+            }
+          </div>
       }
     </div>
   );
