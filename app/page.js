@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import Files from "@/components/files";
 import Header from "@/components/header";

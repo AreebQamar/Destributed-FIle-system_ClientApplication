@@ -110,26 +110,4 @@ export default function Files({ filter }) {
       }
     </div>
   );
-
-  // return (
-  //   <div className="m-4 p-2 border-2 border-gray-500 h-4/5 overflow-y-scroll">
-  //     {filesData
-  //       .filter((filename) =>
-  //         filename.toLowerCase().includes(filter.toLowerCase())
-  //       )
-  //       .map((filename, index) => (
-  //         <div key={index} className="">
-  //           <button
-  //             onClick={() => handleDownload(filename)}
-  //             className="text-2xl cursor-pointer hover:bg-white flex flex-col p-4 rounded-md"
-  //           >
-  //             {filename}
-  //           </button>
-  //           <svg height="20">
-  //             <line x1="0" y1="10" x2="200" y2="10" stroke="white" />
-  //           </svg>
-  //         </div>
-  //       ))}
-  //   </div>
-  // );
 }
